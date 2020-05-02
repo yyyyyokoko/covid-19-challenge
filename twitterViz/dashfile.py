@@ -54,7 +54,7 @@ app.layout = html.Div([
 
 
 def update_output(value):
-    src1 = "https://raw.githubusercontent.com/yyyyyokoko/covid-19-challenge/master/images/" + str(pd.to_datetime(value, unit='s').date()) + '.png'
+    src1 = "https://raw.githubusercontent.com/yyyyyokoko/covid-19-challenge/master/twitterViz/images/" + str(pd.to_datetime(value, unit='s').date()) + '.png'
     img = html.Img(src=src1,  style={'height':'50%', 'width':'50%', 'display': 'inline-block'})
     return img
     # if value:
@@ -73,7 +73,7 @@ def slider_output(value):
     [Input('year-slider', 'value')])
 
 def table_output(value):
-    filename = "https://raw.githubusercontent.com/yyyyyokoko/covid-19-challenge/master/newcsv/" + str(pd.to_datetime(value, unit='s').date()) + '.csv'
+    filename = "https://raw.githubusercontent.com/yyyyyokoko/covid-19-challenge/master/twitterViz/newcsv/" + str(pd.to_datetime(value, unit='s').date()) + '.csv'
     df = pd.read_csv(filename)
     #temp = temp.iloc[1:-1,:].reset_index(drop = True)
     #df['rank'] = df.index + 1
@@ -88,7 +88,7 @@ def table_output(value):
             cells=dict(values=[df['word'], df['count'], list(df['change'])],
                     line_color='darkslategray',
                     fill=dict(color=['lavender', 'white', 'white']),
-                    font_color=font_color,
+                    #font_color=font_color,
                     align= ['left']*3))]
     else:
         data=[go.Table(
