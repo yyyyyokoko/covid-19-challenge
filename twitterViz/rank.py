@@ -1,8 +1,10 @@
 import os
 import pandas as pd
 
-basepath = "covid-19-challenge/csv/"
+basepath = "csv/"
 files = os.listdir(basepath)
+if '.DS_Store' in files:
+    files.remove('.DS_Store')
 
 def getfilenames(filename):
     #for filename in files:
@@ -14,7 +16,7 @@ def getfilenames(filename):
         else:
             secondfilename = "2020-03-" + str(date+1) + ".csv"
     elif int(temp[1]) == 4:
-        if date == 22:
+        if date == 29:
             secondfilename = None
         elif date < 9:
             secondfilename = "2020-04-0" + str(date+1) + ".csv"
