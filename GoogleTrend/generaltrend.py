@@ -15,6 +15,7 @@ app = dash.Dash()
 # Step 2. Import the dataset
 basepath2 = 'generalTerms/'
 files2 = os.listdir(basepath2)
+files2.sort()
 
 plotnames = []
 for i in files2:
@@ -44,8 +45,10 @@ def getData(i):
 
 fig = make_subplots(rows=3, cols=4, subplot_titles=plotnames)
 
+
+
 df2019, df2020= getData(files2[0])
-traceapp1 = go.Scatter(x = df2019.Week, y = df2019.iloc[:,1],
+traceapp1 = go.Scatter(x = df2019['Week'], y = df2019.iloc[:,1],
                 name = '2019',
                 mode='lines',
                 legendgroup='group1',
@@ -53,7 +56,7 @@ traceapp1 = go.Scatter(x = df2019.Week, y = df2019.iloc[:,1],
                             color = 'rgb(111, 231, 219)'),
                 fill='tozeroy')
 
-traceapp2 = go.Scatter(x = df2020.Week, y = df2020.iloc[:,1],
+traceapp2 = go.Scatter(x = df2020['Week'], y = df2020.iloc[:,1],
                     name = '2020',
                     legendgroup='group1',
                     mode='lines',
@@ -61,15 +64,15 @@ traceapp2 = go.Scatter(x = df2020.Week, y = df2020.iloc[:,1],
                                 color = 'red'),
                     fill='tozeroy')
 
-fig.add_trace(traceapp2,
-              row=1, col=1)
-fig.add_trace(traceapp1,
-              row=1, col=1)
+fig.add_trace(traceapp2, row=1, col=1)
+fig.add_trace(traceapp1, row=1, col=1)
 fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=1, col=1)
+fig.update_yaxes(range=[0, 100], row=1, col=1)
 
 for i in range(1, len(files2)):
+    print(i, files2[i])
     df2019, df2020= getData(files2[i])
-    traceapp1 = go.Scatter(x = df2019.Week, y = df2019.iloc[:,1],
+    traceapp1 = go.Scatter(x = df2019['Week'], y = df2019.iloc[:,1],
                     name = '2019',
                     mode='lines',
                     line = dict(width = 1,
@@ -77,7 +80,7 @@ for i in range(1, len(files2)):
                     fill='tozeroy',
                     showlegend= False)
 
-    traceapp2 = go.Scatter(x = df2020.Week, y = df2020.iloc[:,1],
+    traceapp2 = go.Scatter(x = df2020['Week'], y = df2020.iloc[:,1],
                         name = '2020',
                         mode='lines',
                         line = dict(width = 1,
@@ -89,17 +92,19 @@ for i in range(1, len(files2)):
         fig.add_trace(traceapp2, row=1, col=i+1)
         fig.add_trace(traceapp1, row=1, col=i+1)
         fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=1, col=i+1)
+        fig.update_yaxes(range=[0, 100], row=1, col=i+1)
 
     elif 4 <= i <= 7:
         fig.add_trace(traceapp2, row=2, col=i-3)
         fig.add_trace(traceapp1, row=2, col=i-3)
         fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=2, col=i-3)
+        fig.update_yaxes(range=[0, 100], row=2, col=i-3)
 
     elif 8 <= i <= 11:
         fig.add_trace(traceapp2, row=3, col=i-7)
         fig.add_trace(traceapp1, row=3, col=i-7)
         fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=3, col=i-7)
-
+        fig.update_yaxes(range=[0, 100], row=3, col=i-7)
 
 fig.update_traces(mode="lines", hovertemplate=None)
 fig.update_layout(width=1400, height=800, hovermode = 'x unified', showlegend= True, title = "Changes of Google Search Interest")
