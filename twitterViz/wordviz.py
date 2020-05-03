@@ -15,6 +15,7 @@ import os
 app = dash.Dash()
 server = app.server
 
+
 daterange = pd.DataFrame(pd.date_range(start='3/22/2020',end='4/29/2020',freq='D'), columns = ['date'])
 daterange['date'] = [x.timestamp() for x in daterange['date']]
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -70,6 +71,7 @@ def slider_output(value):
     [Input('year-slider', 'value')])
 
 def table_output(value):
+    
     filename = "https://raw.githubusercontent.com/yyyyyokoko/covid-19-challenge/master/twitterViz/newcsv/" + str(pd.to_datetime(value, unit='s').date()) + '.csv'
     df = pd.read_csv(filename)
     #temp = temp.iloc[1:-1,:].reset_index(drop = True)
@@ -77,7 +79,6 @@ def table_output(value):
     
     if str(pd.to_datetime(value, unit='s').date()) != "2020-03-22":
         font_color=['black']*2+[['red' if boolv else 'black' for boolv in df['change'].str.contains('New')]]
-        print(font_color)
         data=[go.Table(
             header=dict(values=list(df.columns),
                         fill_color='paleturquoise',
