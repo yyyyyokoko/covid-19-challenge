@@ -36,11 +36,11 @@ for subdir, dirs, files in os.walk(basepath):
         # temp.to_csv(filename, index = False)
 
         #wordcloud
-        # wordcloud = WordCloud(width=1600, height=800, max_font_size=200, background_color="white")
-        # wordcloud.generate_from_frequencies(frequencies=newdict)
-        # plt.figure(figsize=(20,10))
-        # plt.imshow(wordcloud, interpolation="bilinear")
-        # plt.axis("off")
-        # filename = date +'.png'
-        # plt.savefig(filename)
+        wordcloud = WordCloud(width=1600, height=800, max_font_size=200, background_color="white")
+        wordcloud.generate_from_frequencies(frequencies=newdict)
+        plt.figure(figsize=(20,10))
+        plt.imshow(wordcloud, interpolation="bilinear")
+        plt.axis("off")
+        filename = date +'.png'
+        plt.savefig(filename, bbox_inches='tight', pad_inches=0)
         

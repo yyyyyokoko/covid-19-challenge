@@ -17,11 +17,16 @@ basepath2 = 'generalTerms/'
 files2 = os.listdir(basepath2)
 files2.sort()
 
+if '.DS_Store' in files2:
+    files2.remove('.DS_Store')
+
 plotnames = []
 for i in files2:
     a = pd.read_csv(basepath2 + i, skiprows = 1)
     colname = a.columns[1]
     plotnames.append(colname.split(':')[0])
+
+
 
 def getData(i):
     a = pd.read_csv(basepath2 + i, skiprows = 1)
@@ -43,7 +48,7 @@ def getData(i):
 ##############################################################################
 ### Google 
 
-fig = make_subplots(rows=3, cols=4, subplot_titles=plotnames)
+fig = make_subplots(rows=6, cols=2, subplot_titles=plotnames)
 
 
 
@@ -88,26 +93,39 @@ for i in range(1, len(files2)):
                         fill='tozeroy',
                         showlegend= False)
 
-    if i <= 3:
+    if i <= 1:
         fig.add_trace(traceapp2, row=1, col=i+1)
         fig.add_trace(traceapp1, row=1, col=i+1)
         fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=1, col=i+1)
         fig.update_yaxes(range=[0, 100], row=1, col=i+1)
-
-    elif 4 <= i <= 7:
-        fig.add_trace(traceapp2, row=2, col=i-3)
-        fig.add_trace(traceapp1, row=2, col=i-3)
-        fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=2, col=i-3)
-        fig.update_yaxes(range=[0, 100], row=2, col=i-3)
-
-    elif 8 <= i <= 11:
-        fig.add_trace(traceapp2, row=3, col=i-7)
-        fig.add_trace(traceapp1, row=3, col=i-7)
-        fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=3, col=i-7)
-        fig.update_yaxes(range=[0, 100], row=3, col=i-7)
+    elif 2 <= i <= 3:
+        fig.add_trace(traceapp2, row=2, col=i-1)
+        fig.add_trace(traceapp1, row=2, col=i-1)
+        fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=2, col=i-1)
+        fig.update_yaxes(range=[0, 100], row=2, col=i-1)
+    elif 4 <= i <= 5:
+        fig.add_trace(traceapp2, row=3, col=i-3)
+        fig.add_trace(traceapp1, row=3, col=i-3)
+        fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=3, col=i-3)
+        fig.update_yaxes(range=[0, 100], row=3, col=i-3)
+    elif 6 <= i <= 7:
+        fig.add_trace(traceapp2, row=4, col=i-5)
+        fig.add_trace(traceapp1, row=4, col=i-5)
+        fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=4, col=i-5)
+        fig.update_yaxes(range=[0, 100], row=4, col=i-5)
+    elif 8 <= i <= 9:
+        fig.add_trace(traceapp2, row=5, col=i-7)
+        fig.add_trace(traceapp1, row=5, col=i-7)
+        fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=5, col=i-7)
+        fig.update_yaxes(range=[0, 100], row=5, col=i-7)
+    elif 10 <= i <= 11:
+        fig.add_trace(traceapp2, row=6, col=i-9)
+        fig.add_trace(traceapp1, row=6, col=i-9)
+        fig.update_xaxes(tickangle=45, tickfont=dict(family='Rockwell', color='black', size=10), row=6, col=i-9)
+        fig.update_yaxes(range=[0, 100], row=6, col=i-9)
 
 fig.update_traces(mode="lines", hovertemplate=None)
-fig.update_layout(width=1400, height=800, hovermode = 'x unified', showlegend= True, title = "Changes of Google Search Interest")
+fig.update_layout(width=600, height=800, hovermode = 'x unified', showlegend= True, title = "Changes of Google Search Interest")
 
 # Step 4. Create a Dash layout
 app.layout = html.Div([
